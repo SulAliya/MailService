@@ -1,0 +1,24 @@
+{% extends 'mail_service/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">
+                        {% if object %}
+                        Сохранить изменения
+                        {% else %}
+                        Создать рассылку
+                        {% endif %}
+                    </button>
+                    <a class="btn btn-primary" href="{% url 'mail_service:message_create'%}" role="button">Создать новое
+                        сообщение</a>
+                    <a class="btn btn-primary" href="{% url 'mail_service:letter_list'%}" role="button">Назад</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
