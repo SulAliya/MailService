@@ -5,13 +5,10 @@
         <div class="col">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <p class="card-text">Клиент:
-                    <ul> {% for value in object.customer.all.values_list %}
-                    <li> {{value.1}} </li> {% endfor %} </ul> </p>
-                    <p class="card-text">Сообщение: <ul> {{object.message}} </ul> </p>
-                    <p class="card-text">Дата и время первой отправки рассылки: <ul> {{object.date_and_time}} </ul> </p>
-                    <p class="card-text">Периодичность: <ul> {{ object.frequency }} </ul> </p>
-                    <p class="card-text">Статус рассылки: <ul> {{ object.status }} </ul> </p>
+                    <p class="card-text">Клиент: {{object.name}}  </p>
+                    <p class="card-text">Почта: {{object.email}}  </p>
+                    <p class="card-text">Комментарий: {{object.comment}}  </p>
+
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <a class="btn btn-primary" href="{% url 'mail_service:letter_list'%}"

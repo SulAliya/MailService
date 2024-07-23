@@ -7,11 +7,13 @@
             <div class="card-body">
                 <form method="post">
                     {% csrf_token %}
-                    <p> Хотите удалить "{{ object.status }}"?</p>
+                    <p> Хотите удалить "{{ object.name }}"?</p>
                     <button type="submit" class="btn btn-danger">Подтвердить</button>
-                    <a class="btn btn-primary" href="{% url 'mail_service:message_list'%}" role="button">Назад</a>
+                    <a class="btn btn-primary" href="{% url 'mail_service:customer_list'%}" role="button">Назад</a>
                 </form>
             </div>
         </div>
     </div>
     {% endblock %}
+
+    
