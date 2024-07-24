@@ -2,15 +2,17 @@
 {% block content %}
 
 <div class="container">
+    <p><a class="btn btn-primary btn-lg" href="{% url 'mail_service:letter_create' %}" role="button">Создать рассылку &raquo;</a></p>
     <div class="row">
+
         {% for letter in object_list %}
         <div class="col-md-4">
             <h2>{{ letter.name }}</h2>
             <p> {{ letter.status }}</p>
             <p class="card-text">{{letter.message}}</p>
-            <p><a class="btn btn-primary" href="{% url 'mail_service:letter_detail' letter.pk %}" role="button">Посмотреть &raquo;</a></p>
-            <p><a class="btn btn-warning" href="{% url 'mail_service:letter_update' letter.pk %}" role="button">Редактировать &raquo;</a></p>
-            <p><a class="btn btn-secondary" href="{% url 'mail_service:letter_delete' letter.pk %}" role="button">Удалить &raquo;</a></p>
+            <p><a class="btn btn-info " href="{% url 'mail_service:letter_detail' letter.pk %}" role="button">Посмотреть &raquo;</a></p>
+            <p><a class="btn btn-warning " href="{% url 'mail_service:letter_update' letter.pk %}" role="button">Редактировать &raquo;</a></p>
+            <p><a class="btn btn-secondary " href="{% url 'mail_service:letter_delete' letter.pk %}" role="button">Удалить &raquo;</a></p>
         </div>
         {% endfor %}
     </div>

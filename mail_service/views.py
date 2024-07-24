@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
+from mail_service.forms import NewsLetterForm, MessageForm, CustomerForm
 from mail_service.models import NewsLetter, Message, Customer
 
 
@@ -15,13 +16,13 @@ class LetterDetailView(DetailView):
 
 class LetterCreateView(CreateView):
     model = NewsLetter
-    fields = ('name', 'customer', 'message', 'date_and_time', 'frequency', 'status')
+    form_class = NewsLetterForm
     success_url = reverse_lazy('mail_service:letter_list')
 
 
 class LetterUpdateView(UpdateView):
     model = NewsLetter
-    fields = ('name', 'customer', 'message', 'date_and_time', 'frequency', 'status')
+    form_class = NewsLetterForm
     success_url = reverse_lazy('mail_service:letter_list')
 
 
@@ -41,13 +42,13 @@ class MessageDetailView(DetailView):
 
 class MessageCreateView(CreateView):
     model = Message
-    fields = ('letter_subject', 'body')
+    form_class = MessageForm
     success_url = reverse_lazy('mail_service:message_list')
 
 
 class MessageUpdateView(UpdateView):
     model = Message
-    fields = ('letter_subject', 'body')
+    form_class = MessageForm
     success_url = reverse_lazy('mail_service:message_list')
 
 
@@ -67,13 +68,13 @@ class CustomerDetailView(DetailView):
 
 class CustomerCreateView(CreateView):
     model = Customer
-    fields = ('name', 'email', 'comment')
+    form_class = CustomerForm
     success_url = reverse_lazy('mail_service:customer_list')
 
 
 class CustomerUpdateView(UpdateView):
     model = Customer
-    fields = ('name', 'email', 'comment')
+    form_class = CustomerForm
     success_url = reverse_lazy('mail_service:customer_list')
 
 
