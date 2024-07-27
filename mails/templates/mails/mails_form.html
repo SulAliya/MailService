@@ -1,0 +1,20 @@
+{% extends 'mail_service/base.html'%}
+{% block content %}
+<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-header">Отправка рассылки</div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="mails" value="{{ mails.pk }}">
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success">Отправить рассылку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
