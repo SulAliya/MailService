@@ -73,7 +73,7 @@ class Attempt(models.Model):  # Попытка рассылки.
     mailing_parameters = models.ForeignKey(NewsLetter, on_delete=models.CASCADE,
                                            verbose_name='параметры рассылки', **NULLABLE)
     date_and_time = models.DateTimeField(verbose_name='дата и время последней попытки')
-    status = models.CharField(verbose_name='статус попытки (успешно / не успешно)')
+    is_success = models.BooleanField(verbose_name='статус попытки (успешно / не успешно)', default=False)
     answer = models.TextField(verbose_name='ответ почтового сервера, если он был')
 
     def __str__(self):

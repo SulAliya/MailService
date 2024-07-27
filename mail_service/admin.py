@@ -22,8 +22,8 @@ class NewsLetterAdmin(admin.ModelAdmin):
 
 @admin.register(Attempt)
 class AttemptAdmin(admin.ModelAdmin):
-    list_display = ('date_and_time', 'status', 'answer',)
-    list_filter = ('status',)
+    list_display = ('date_and_time', 'is_success', 'answer',)
+    list_filter = ('is_success',)
 
 
 
