@@ -6,3 +6,4 @@ django-stubs
 apscheduler
 pytz
 timedelta
+secure-smtplib

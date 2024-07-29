@@ -9,6 +9,12 @@ class NewsLetterForm(ModelForm):
         fields = '__all__'
 
 
+class NewsLetterModeratorForm(ModelForm):
+    class Meta:
+        model = NewsLetter
+        fields = '__all__'
+
+
 class MessageForm(ModelForm):
     class Meta:
         model = Message

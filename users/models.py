@@ -10,6 +10,7 @@ class User(AbstractUser):
                                help_text='Загрузите свой аватар')
     phone = models.CharField(max_length=35, verbose_name='номер телефона', blank=True, null=True,
                              help_text='Введите номер телефона')
+    token = models.CharField(max_length=100, verbose_name='Token', blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
