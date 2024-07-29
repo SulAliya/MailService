@@ -8,6 +8,10 @@ class Mails(models.Model):
     email = models.EmailField(verbose_name='Email адрес')
     message = models.TextField()
 
+    closed = models.BooleanField(default=False, verbose_name='Рассылка отправлена')
+
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
     def __str__(self):
         return f'{self.newsletter} от {self.email}'
 

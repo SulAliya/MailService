@@ -16,14 +16,14 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(NewsLetter)
 class NewsLetterAdmin(admin.ModelAdmin):
-    list_display = ('date_and_time', 'frequency', 'status',)
+    list_display = ('start_time', 'end_time', 'frequency', 'status',)
     list_filter = ('status',)
 
 
 @admin.register(Attempt)
 class AttemptAdmin(admin.ModelAdmin):
-    list_display = ('date_and_time', 'is_success', 'answer',)
-    list_filter = ('is_success',)
+    list_display = ('date_and_time', 'status', 'answer',)
+    list_filter = ('status',)
 
 
 

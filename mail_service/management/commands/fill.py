@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 
-from mail_service.services import start
+from mail_service.services import send_newsletter_periodic_email
 
 
 class Command(BaseCommand):
@@ -8,4 +8,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        start()
+        send_newsletter_periodic_email()

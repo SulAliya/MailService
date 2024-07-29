@@ -50,8 +50,8 @@ class NewsLetter(models.Model):  # Рассылка (настройки).
     name = models.CharField(max_length=50, verbose_name='Название рассылки', default='без названия', **NULLABLE)
     customer = models.ManyToManyField(Customer, verbose_name='Клиент сервиса', help_text='Укажите клиентов')
     message = models.OneToOneField(Message, verbose_name='Сообщение', on_delete=models.CASCADE, **NULLABLE)
-
-    date_and_time = models.DateTimeField(verbose_name='Дата и время первой отправки рассылки(дд.мм.гг)')
+    start_time = models.DateTimeField(verbose_name='время начала рассылки', **NULLABLE)
+    end_time = models.DateTimeField(verbose_name='время окончания рассылки', **NULLABLE)
     frequency = models.CharField(verbose_name='Периодичность: раз в день, раз в неделю, раз в месяц',
                                  choices=FREQUENCY_CHOICES,
                                  default=DAILY  # По умолчанию раз в день.
@@ -62,18 +62,24 @@ class NewsLetter(models.Model):  # Рассылка (настройки).
                               )
 
     def __str__(self):
-        return f'{self.date_and_time} /n {self.frequency} /n {self.status}'
+        return f'{self.start_time} /n {self.frequency} /n {self.status}'
 
     class Meta:
         verbose_name = 'Рассылка (настройки)'
         verbose_name_plural = 'Рассылки (настройки)'
+        permissions = [
+            ('can_delete_newsletter', "Can delete newsletter"),
+            ('can_view_newsletter', "Can view newsletter"),
+            ('can_delete_user', "Can delete user"),
+            ('can_view_user', "Can view user")
+        ]
 
 
 class Attempt(models.Model):  # Попытка рассылки.
     mailing_parameters = models.ForeignKey(NewsLetter, on_delete=models.CASCADE,
                                            verbose_name='параметры рассылки', **NULLABLE)
     date_and_time = models.DateTimeField(verbose_name='дата и время последней попытки')
-    is_success = models.BooleanField(verbose_name='статус попытки (успешно / не успешно)', default=False)
+    status = models.BooleanField(verbose_name='статус попытки (успешно / не успешно)', default=False)
     answer = models.TextField(verbose_name='ответ почтового сервера, если он был')
 
     def __str__(self):
