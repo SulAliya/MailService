@@ -7,3 +7,5 @@ apscheduler
 pytz
 timedelta
 secure-smtplib
+redis
+python-dotenv
