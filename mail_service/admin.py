@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from mail_service.models import Message, Customer, NewsLetter, Attempt
+from mail_service.models import Message, Client, NewsLetter, Attempt
 
 
-@admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'comment',)
     list_filter = ('name', 'email',)
 
@@ -22,7 +22,7 @@ class NewsLetterAdmin(admin.ModelAdmin):
 
 @admin.register(Attempt)
 class AttemptAdmin(admin.ModelAdmin):
-    list_display = ('date_and_time', 'status', 'answer',)
+    list_display = ('time', 'status', 'server_response',)
     list_filter = ('status',)
 
 

@@ -3,7 +3,7 @@ from django.db import models
 NULLABLE = {'blank': True, 'null': True}
 
 
-class Customer(models.Model):  # Клиент сервиса.
+class Client(models.Model):  # Клиент сервиса.
     name = models.CharField(max_length=100, verbose_name='Ф.И.О.')
     email = (models.EmailField(max_length=100, verbose_name='Контактный email', unique=True))
     comment = models.TextField(verbose_name='Комментарий', **NULLABLE)
@@ -32,23 +32,25 @@ class NewsLetter(models.Model):  # Рассылка (настройки).
     CREATED = 'Создана'
     STARTED = 'Запущена'
     FINISHED = 'Завершена'
+    MINUTLY = 'minutly'
     DAILY = 'daily',
     WEEKLY = 'weekly',
     MONTHLY = 'monthly',
 
     STATUS_CHOICES = (
-        ('Создана', 'Создана'),
-        ('Запущена', 'Запущена'),
-        ('Завершена', 'Завершена'),
+        ('CREATED', 'Создана'),
+        ('STARTED', 'Запущена'),
+        ('FINISHED', 'Завершена'),
     )
 
     FREQUENCY_CHOICES = (
-        ('Раз в день', 'раз в день'),
-        ('Раз в неделю', 'раз в неделю'),
-        ('Раз в месяц', 'раз в месяц'),
+        ('MINUTLY', 'раз в минуту'),
+        ('DAILY', 'раз в день'),
+        ('WEEKLY', 'раз в неделю'),
+        ('MONTHLY', 'раз в месяц'),
     )
     name = models.CharField(max_length=50, verbose_name='Название рассылки', default='без названия', **NULLABLE)
-    customer = models.ManyToManyField(Customer, verbose_name='Клиент сервиса', help_text='Укажите клиентов')
+    client = models.ManyToManyField(Client, verbose_name='Клиент сервиса', help_text='Укажите клиентов')
     message = models.OneToOneField(Message, verbose_name='Сообщение', on_delete=models.CASCADE, **NULLABLE)
     start_time = models.DateTimeField(verbose_name='время начала рассылки', **NULLABLE)
     end_time = models.DateTimeField(verbose_name='время окончания рассылки', **NULLABLE)
@@ -76,14 +78,22 @@ class NewsLetter(models.Model):  # Рассылка (настройки).
 
 
 class Attempt(models.Model):  # Попытка рассылки.
+    LOG_SUCCESS = 'Успешно'
+    LOG_FAIL = 'Неуспешно'
+
+    STATUS_VARIANTS = [
+        (LOG_SUCCESS, 'Успешно'),
+        (LOG_FAIL, 'Неуспешно'),
+    ]
+
     mailing_parameters = models.ForeignKey(NewsLetter, on_delete=models.CASCADE,
                                            verbose_name='параметры рассылки', **NULLABLE)
-    date_and_time = models.DateTimeField(verbose_name='дата и время последней попытки')
-    status = models.BooleanField(verbose_name='статус попытки (успешно / не успешно)', default=False)
-    answer = models.TextField(verbose_name='ответ почтового сервера, если он был')
+    time = models.DateTimeField(verbose_name='дата и время последней попытки')
+    status = models.BooleanField(verbose_name='статус попытки (успешно / не успешно)', choices=STATUS_VARIANTS)
+    server_response = models.TextField(verbose_name='ответ почтового сервера, если он был')
 
     def __str__(self):
-        return f'{self.date_and_time} /n {self.status} /n {self.answer}'
+        return f'{self.time} /n {self.status} /n {self.server_response}'
 
     class Meta:
         verbose_name = 'Попытка рассылки'

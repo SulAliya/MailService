@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="mb-3">
-    <a href="{% url 'mail_service:customer_create' %}" class="w-100 btn btn-lg btn-outline-primary">Добавить клиента</a>
+    <a href="{% url 'mail_service:client_create' %}" class="w-100 btn btn-lg btn-outline-primary">Добавить клиента</a>
 </div>
 <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
     {% for object in object_list %}
@@ -19,13 +19,13 @@
                     <li>Комментарий: {{ object.comment }}</li>
 
                 </ul>
-                <a href="{% url 'mail_service:customer_update'  object.pk %}" type="button"
+                <a href="{% url 'mail_service:client_update'  object.pk %}" type="button"
                    class="w-100 btn btn-lg btn-outline-primary">Редактировать</a>
 
 
             </div>
             <div class="card-footer">
-                <a href="{% url 'mail_service:customer_delete'  object.pk %}" type="button"
+                <a href="{% url 'mail_service:client_delete'  object.pk %}" type="button"
                    class="w-100 btn btn-lg btn-outline-primary">Удалить</a>
             </div>
 
