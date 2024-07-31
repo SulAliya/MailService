@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from mail_service.models import NewsLetter, Message, Customer
+from mail_service.models import NewsLetter, Message, Client
 
 
 class NewsLetterForm(ModelForm):
@@ -21,7 +21,7 @@ class MessageForm(ModelForm):
         fields = '__all__'
 
 
-class CustomerForm(ModelForm):
+class ClientForm(ModelForm):
     class Meta:
-        model = Customer
+        model = Client
         fields = '__all__'

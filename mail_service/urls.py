@@ -3,8 +3,8 @@ from mail_service.apps import MailServiceConfig
 from mail_service.views import (LetterListView, LetterCreateView, LetterUpdateView, LetterDetailView, LetterDeleteView,
                                 MessageCreateView, MessageUpdateView, MessageDeleteView, MessageListView,
                                 MessageDetailView,
-                                CustomerCreateView, CustomerListView, CustomerUpdateView, CustomerDeleteView,
-                                CustomerDetailView)
+                                ClientCreateView, ClientListView, ClientUpdateView, ClientDeleteView,
+                                ClientDetailView)
 
 app_name = MailServiceConfig.name
 
@@ -21,11 +21,11 @@ urlpatterns = [
     path('message_update/<int:pk>/update/', MessageUpdateView.as_view(), name='message_update'),
     path('message_delete/<int:pk>/delete/', MessageDeleteView.as_view(), name='message_delete'),
 
-    path('customer_list/', CustomerListView.as_view(), name='customer_list'),
-    path('customer_service/<int:pk>/', CustomerDetailView.as_view(), name='customer_detail'),
-    path('customer_create/', CustomerCreateView.as_view(), name='customer_create'),
-    path('customer_update/<int:pk>/update/', CustomerUpdateView.as_view(), name='customer_update'),
-    path('customer_delete/<int:pk>/delete/', CustomerDeleteView.as_view(), name='customer_delete'),
+    path('client_list/', ClientListView.as_view(), name='client_list'),
+    path('client_service/<int:pk>/', ClientDetailView.as_view(), name='client_detail'),
+    path('client_create/', ClientCreateView.as_view(), name='client_create'),
+    path('client_update/<int:pk>/update/', ClientUpdateView.as_view(), name='client_update'),
+    path('client_delete/<int:pk>/delete/', ClientDeleteView.as_view(), name='client_delete'),
 
 ]
 

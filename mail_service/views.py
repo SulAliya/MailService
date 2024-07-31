@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
-from mail_service.forms import NewsLetterForm, MessageForm, CustomerForm
-from mail_service.models import NewsLetter, Message, Customer
+from mail_service.forms import NewsLetterForm, MessageForm, ClientForm
+from mail_service.models import NewsLetter, Message, Client
 
 
 class LetterListView(ListView):
@@ -58,26 +58,26 @@ class MessageDeleteView(DeleteView):
 
 
 #crud для клиента
-class CustomerListView(ListView):
-    model = Customer
+class ClientListView(ListView):
+    model = Client
 
 
-class CustomerDetailView(DetailView):
-    model = Customer
+class ClientDetailView(DetailView):
+    model = Client
 
 
-class CustomerCreateView(CreateView):
-    model = Customer
-    form_class = CustomerForm
-    success_url = reverse_lazy('mail_service:customer_list')
+class ClientCreateView(CreateView):
+    model = Client
+    form_class = ClientForm
+    success_url = reverse_lazy('mail_service:client_list')
 
 
-class CustomerUpdateView(UpdateView):
-    model = Customer
-    form_class = CustomerForm
-    success_url = reverse_lazy('mail_service:customer_list')
+class ClientUpdateView(UpdateView):
+    model = Client
+    form_class = ClientForm
+    success_url = reverse_lazy('mail_service:client_list')
 
 
-class CustomerDeleteView(DeleteView):
-    model = Customer
-    success_url = reverse_lazy('mail_service:customer_list')
+class ClientDeleteView(DeleteView):
+    model = Client
+    success_url = reverse_lazy('mail_service:client_list')
