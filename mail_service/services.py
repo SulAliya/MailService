@@ -36,11 +36,10 @@ def send_newsletter_periodic_email():
     current_datetime = datetime.now(zone)
     print(f'Текущее время - {current_datetime}')
 
-    for obj in NewsLetter.objects.filter(status__in=('Создана', 'Запущена')):
+    for obj in NewsLetter.objects.all():
         if obj.start_time < current_datetime < obj.end_time:
-
             log = Attempt.objects.filter(mailing_parameters=obj)
-            print(' проверка')
+            print(log)
             if log.exists():
                 last_log = log.order_by('time').last()
                 current_timedelta = current_datetime - last_log.time
@@ -55,9 +54,7 @@ def send_newsletter_periodic_email():
                         weeks=4):
                     send_newsletter_email(obj)
                     print(f'Выполнена рассылка раз в месяц')
-                elif obj.frequency == 'minutly' and current_timedelta >= timedelta(minutes=1):
-                    send_newsletter_email(obj)
-                    print(f'Выполнена рассылка раз в минуту')
+
             else:
                 send_newsletter_email(obj)
                 print(f'иначе')
