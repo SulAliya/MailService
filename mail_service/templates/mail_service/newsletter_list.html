@@ -11,7 +11,9 @@
             <p> {{ letter.status }}</p>
             <p class="card-text">{{letter.message}}</p>
             <p><a class="btn btn-info " href="{% url 'mail_service:letter_detail' letter.pk %}" role="button">Посмотреть &raquo;</a></p>
+            {% if perms.mail_service.can_delete_newsletter and perms.mail_service.can_view_newsletter or user == letter.owner %}
             <p><a class="btn btn-warning " href="{% url 'mail_service:letter_update' letter.pk %}" role="button">Редактировать &raquo;</a></p>
+            {% endif %}
             <p><a class="btn btn-secondary " href="{% url 'mail_service:letter_delete' letter.pk %}" role="button">Удалить &raquo;</a></p>
         </div>
         {% endfor %}

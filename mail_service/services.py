@@ -43,17 +43,22 @@ def send_newsletter_periodic_email():
             if log.exists():
                 last_log = log.order_by('time').last()
                 current_timedelta = current_datetime - last_log.time
+                print(obj.frequency)
 
-                if obj.frequency == 'dayly' and current_timedelta >= timedelta(days=1):
+                if obj.frequency == 'DAILY' and current_timedelta >= timedelta(days=1):
                     send_newsletter_email(obj)
                     print(f'Выполнена рассылка раз в день')
-                elif obj.frequency == 'weekly' and current_timedelta >= timedelta(weeks=1):
+                elif obj.frequency == 'WEEKLY' and current_timedelta >= timedelta(weeks=1):
                     send_newsletter_email(obj)
                     print(f'Выполнена рассылка раз в неделю')
-                elif obj.frequency == 'monthly' and current_timedelta >= timedelta(
+                elif obj.frequency == 'MONTHLY' and current_timedelta >= timedelta(
                         weeks=4):
                     send_newsletter_email(obj)
                     print(f'Выполнена рассылка раз в месяц')
+                # elif obj.frequency == 'MINUTLY' and current_timedelta >= timedelta(
+                #         minutes=1):
+                #     send_newsletter_email(obj)
+                #     print(f'Выполнена рассылка раз в минуту')
 
             else:
                 send_newsletter_email(obj)

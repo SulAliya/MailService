@@ -22,8 +22,10 @@
                     <li>Текст сообщения: {{ object.body }}</li>
 
                 </ul>
+                {% if perms.mail_service.can_delete_newsletter and perms.mail_service.can_view_newsletter or user == letter.owner %}
                 <a href="{% url 'mail_service:message_update'  object.pk %}" type="button"
                    class="w-100 btn btn-lg btn-outline-primary">Редактировать</a>
+                {% endif %}
 
 
             </div>

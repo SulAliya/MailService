@@ -19,9 +19,10 @@
                     <li>Комментарий: {{ object.comment }}</li>
 
                 </ul>
+                {% if perms.mail_service.can_delete_client and perms.mail_service.can_view_client or user == letter.owner %}
                 <a href="{% url 'mail_service:client_update'  object.pk %}" type="button"
                    class="w-100 btn btn-lg btn-outline-primary">Редактировать</a>
-
+                {% endif %}
 
             </div>
             <div class="card-footer">

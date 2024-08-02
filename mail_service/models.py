@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -7,6 +9,8 @@ class Client(models.Model):  # Клиент сервиса.
     name = models.CharField(max_length=100, verbose_name='Ф.И.О.')
     email = (models.EmailField(max_length=100, verbose_name='Контактный email', unique=True))
     comment = models.TextField(verbose_name='Комментарий', **NULLABLE)
+
+    owner = models.ForeignKey(User, verbose_name='Менеджер', **NULLABLE, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f'{self.name} - {self.email} \n {self.comment}'
@@ -19,6 +23,8 @@ class Client(models.Model):  # Клиент сервиса.
 class Message(models.Model):  # Сообщение для рассылки.
     letter_subject = models.TextField(verbose_name='тема письма', **NULLABLE)
     body = models.TextField(verbose_name='тело письма')
+
+    owner = models.ForeignKey(User, verbose_name='Менеджер', **NULLABLE, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f'Тема письма: {self.letter_subject}. \n Сообщение: {self.body}'
@@ -62,6 +68,7 @@ class NewsLetter(models.Model):  # Рассылка (настройки).
                               default=CREATED,  # По умолчанию создана.
                               choices=STATUS_CHOICES
                               )
+    owner = models.ForeignKey(User, verbose_name='Менеджер', **NULLABLE, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f'{self.start_time} /n {self.frequency} /n {self.status}'
@@ -72,8 +79,8 @@ class NewsLetter(models.Model):  # Рассылка (настройки).
         permissions = [
             ('can_delete_newsletter', "Can delete newsletter"),
             ('can_view_newsletter', "Can view newsletter"),
-            ('can_delete_user', "Can delete user"),
-            ('can_view_user', "Can view user")
+            ('can_delete_client', "Can delete client"),
+            ('can_view_client', "Can view client")
         ]
 
 
