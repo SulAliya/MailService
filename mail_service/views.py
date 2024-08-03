@@ -10,6 +10,13 @@ from mail_service.models import NewsLetter, Message, Client
 class LetterListView(ListView):
     model = NewsLetter
 
+    def get_context_data(self, **kwargs):
+        # Получаем контекст из родительского класса ListView
+        context = super().get_context_data(**kwargs)
+        # Дополняем контекст нужным нам значением
+        context['newsletter_count'] = NewsLetter.objects.count()
+        return context
+
 
 class LetterDetailView(DetailView):
     model = NewsLetter
@@ -87,6 +94,13 @@ class MessageDeleteView(DeleteView):
 # crud для клиента
 class ClientListView(ListView):
     model = Client
+
+    def get_context_data(self, **kwargs):
+        # Получаем контекст из родительского класса ListView
+        context = super().get_context_data(**kwargs)
+        # Дополняем контекст нужным нам значением
+        context['client_count'] = Client.objects.count()
+        return context
 
 
 class ClientDetailView(DetailView):
