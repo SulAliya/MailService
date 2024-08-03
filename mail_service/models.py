@@ -11,6 +11,10 @@ class Client(models.Model):  # Клиент сервиса.
     comment = models.TextField(verbose_name='Комментарий', **NULLABLE)
 
     owner = models.ForeignKey(User, verbose_name='Менеджер', **NULLABLE, on_delete=models.SET_NULL)
+    count = models.PositiveIntegerField(
+        verbose_name='Количество клиентов рассылок',
+        default=0
+    )
 
     def __str__(self):
         return f'{self.name} - {self.email} \n {self.comment}'
@@ -69,6 +73,10 @@ class NewsLetter(models.Model):  # Рассылка (настройки).
                               choices=STATUS_CHOICES
                               )
     owner = models.ForeignKey(User, verbose_name='Менеджер', **NULLABLE, on_delete=models.SET_NULL)
+    count = models.PositiveIntegerField(
+        verbose_name='Количество рассылок',
+        default=0
+    )
 
     def __str__(self):
         return f'{self.start_time} /n {self.frequency} /n {self.status}'

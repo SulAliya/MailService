@@ -8,7 +8,7 @@
         {% for letter in object_list %}
         <div class="col-md-4">
             <h2>{{ letter.name }}</h2>
-            <p> {{ letter.status }}</p>
+
             <p class="card-text">{{letter.message}}</p>
             <p><a class="btn btn-success " href="{% url 'mail_service:letter_detail' letter.pk %}" role="button">Посмотреть &raquo;</a></p>
             {% if perms.mail_service.can_delete_newsletter and perms.mail_service.can_view_newsletter or user == letter.owner %}
