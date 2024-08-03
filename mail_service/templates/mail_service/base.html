@@ -27,6 +27,7 @@
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    <a class="navbar-brand" href="{% url 'blog:blog_list'%}">Блог</a>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
@@ -47,9 +48,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="{% url 'mail_service:message_list'%}">Список сообщений</a>
                     <a class="dropdown-item" href="{% url 'mail_service:message_create' %}">Создать новое сообщение</a>
-                    <a class="dropdown-item" href="#"></a>
                 </div>
-
             </li>
         </ul>
         <nav class="ms-5">
