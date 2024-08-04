@@ -1,4 +1,6 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
+
 from mail_service.apps import MailServiceConfig
 from mail_service.views import (LetterListView, LetterCreateView, LetterUpdateView, LetterDetailView, LetterDeleteView,
                                 MessageCreateView, MessageUpdateView, MessageDeleteView, MessageListView,

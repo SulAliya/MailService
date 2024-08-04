@@ -1,27 +1,37 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, BooleanField
 
 from mail_service.models import NewsLetter, Message, Client
 
 
-class NewsLetterForm(ModelForm):
+class StyleFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for fild_name, fild in self.fields.items():
+            if isinstance(fild, BooleanField):
+                fild.widget.attrs['class'] = "form-check-input"
+            else:
+                fild.widget.attrs['class'] = "form-control"
+
+
+class NewsLetterForm(StyleFormMixin, ModelForm):
     class Meta:
         model = NewsLetter
         fields = '__all__'
 
 
-class NewsLetterModeratorForm(ModelForm):
+class NewsLetterModeratorForm(StyleFormMixin, ModelForm):
     class Meta:
         model = NewsLetter
-        fields = '__all__'
+        exclude = ('owner', 'count')
 
 
-class MessageForm(ModelForm):
+class MessageForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Message
         fields = '__all__'
 
 
-class ClientForm(ModelForm):
+class ClientForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Client
         fields = '__all__'
