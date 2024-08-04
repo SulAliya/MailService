@@ -1,8 +1,12 @@
+from random import sample
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
+from blog.models import Blog
 from mail_service.forms import NewsLetterForm, MessageForm, ClientForm, NewsLetterModeratorForm
 from mail_service.models import NewsLetter, Message, Client
 
@@ -10,11 +14,19 @@ from mail_service.models import NewsLetter, Message, Client
 class LetterListView(ListView):
     model = NewsLetter
 
+    # def get_context_data(self, **kwargs):
+    #     # Получаем контекст из родительского класса ListView
+    #     context = super().get_context_data(**kwargs)
+    #     # Дополняем контекст нужным нам значением
+    #     context['newsletter_count'] = NewsLetter.objects.count()
+    #     return context
     def get_context_data(self, **kwargs):
-        # Получаем контекст из родительского класса ListView
         context = super().get_context_data(**kwargs)
-        # Дополняем контекст нужным нам значением
-        context['newsletter_count'] = NewsLetter.objects.count()
+        context['total_newsletters'] = NewsLetter.objects.count()
+        context['active_newsletters'] = NewsLetter.objects.filter(status='CREATED').count()
+        context['unique_clients'] = Client.objects.distinct().count()
+        all_posts = list(Blog.objects.filter(is_published=True))
+        context['random_posts'] = sample(all_posts, min(len(all_posts), 3))
         return context
 
 
@@ -132,3 +144,31 @@ class ClientUpdateView(UpdateView):
 class ClientDeleteView(DeleteView):
     model = Client
     success_url = reverse_lazy('mail_service:client_list')
+
+
+def index_data(request):
+    count_mailing_items = NewsLetter.objects.count()
+    count_active_mailing_items = NewsLetter.objects.filter(status='STARTED').count()
+    count_unic_clients = Client.objects.values_list('email', flat=True).count()
+    random_blogs = Blog.objects.order_by('?')[:3]
+    context = {'count_mailing_items': count_mailing_items,
+               'count_active_mailing_items': count_active_mailing_items,
+               'count_unic_clients': count_unic_clients,
+               'random_blogs': random_blogs,
+               }
+
+    return context
+
+
+def index_data(request):
+    newsletter_count = NewsLetter.objects.count()
+    count_active_mailing_items = NewsLetter.objects.filter(status='STARTED').count()
+    client_count = Client.objects.count()
+    random_blogs = Blog.objects.order_by('?')[:3]
+    context = {'count_mailing_items': newsletter_count,
+               'count_active_mailing_items': count_active_mailing_items,
+               'count_unic_clients': client_count,
+               'random_blogs': random_blogs,
+               }
+
+    return render(request, 'mail_service/base.html', context)

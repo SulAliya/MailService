@@ -16,8 +16,38 @@
             {% endif %}
             <p><a class="btn btn-secondary " href="{% url 'mail_service:letter_delete' letter.pk %}" role="button">Удалить &raquo;</a></p>
         </div>
+
         {% endfor %}
     </div>
-    <hr>
-</div>
+
+<div class=".col-md-4 .ml-auto">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Статистика:</h5>
+          <p class="card-text">количество рассылок всего {{total_newsletters}}</p>
+            <p>количество активных рассылок {{active_newsletters}}</p>
+              <p>количество уникальных клиентов для рассылок {{unique_clients}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="container px-4 py-5">
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="fs-2 text-body-emphasis">
+                <h2>Статьи из блога</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for post in random_posts %}
+                    <li class="list-group-item">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.content|truncatewords:20 }}</p>
+                        <a class="btn btn-primary" href="{% url 'blog:blog_detail' post.id %}">Читать далее</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <hr>
+    </div>
+
 {% endblock %}
